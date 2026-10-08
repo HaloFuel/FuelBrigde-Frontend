@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" class="toolbar">
+  <img src="/fulltank-logo.png" alt="FuelBridge Logo" class="toolbar-logo" />
+  <p class="toolbar-title">FuelBridge</p>
+
+  <span class="spacer"></span>
+
+  @if (iam.isAuthenticated()) {
+    <span class="toolbar-username">{{ iam.session()?.username }}</span>
+    <button mat-button (click)="signOut()">
+      <mat-icon>logout</mat-icon>
+      Cerrar sesión
+    </button>
+  } @else {
+    <a mat-button routerLink="/iam">
+      <mat-icon>login</mat-icon>
+      Iniciar sesión
+    </a>
+  }
+
+  <app-language-switcher></app-language-switcher>
+</mat-toolbar>

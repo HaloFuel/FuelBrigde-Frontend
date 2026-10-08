@@ -1,0 +1,75 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-content>
+      <div class="brand">
+        <img src="/fulltank-logo.png" alt="FuelBridge logo" class="brand-logo" />
+        <h1 class="brand-title">FuelBridge</h1>
+        <p class="brand-subtitle">Acceso para empresas compradoras y proveedoras</p>
+      </div>
+
+      <mat-button-toggle-group class="mode-toggle" [value]="mode()" (change)="setMode($event.value)">
+        <mat-button-toggle value="login">Iniciar sesión</mat-button-toggle>
+        <mat-button-toggle value="register">Registrarse</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      @if (isRegisterMode()) {
+        <div class="role-toggle">
+          <button
+            type="button"
+            mat-stroked-button
+            [color]="selectedRole() === 'ROLE_BUYER' ? 'primary' : undefined"
+            (click)="pickRole('ROLE_BUYER')"
+          >
+            <mat-icon>apartment</mat-icon>
+            Comprador
+          </button>
+          <button
+            type="button"
+            mat-stroked-button
+            [color]="selectedRole() === 'ROLE_PROVIDER' ? 'primary' : undefined"
+            (click)="pickRole('ROLE_PROVIDER')"
+          >
+            <mat-icon>local_shipping</mat-icon>
+            Proveedor
+          </button>
+        </div>
+      }
+
+      <form [formGroup]="credentialsForm" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="username" autocomplete="username" />
+          <mat-icon matPrefix>person</mat-icon>
+          @if (credentialsForm.get('username')?.invalid && credentialsForm.get('username')?.touched) {
+            <mat-error>{{ getErrorMessage('username') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password" autocomplete="current-password" />
+          <mat-icon matPrefix>lock</mat-icon>
+          @if (credentialsForm.get('password')?.invalid && credentialsForm.get('password')?.touched) {
+            <mat-error>{{ getErrorMessage('password') }}</mat-error>
+          }
+        </mat-form-field>
+
+        @if (error()) {
+          <div class="error-container">
+            <mat-icon>error_outline</mat-icon>
+            <p>{{ error() }}</p>
+          </div>
+        }
+
+        <button mat-raised-button color="primary" type="submit" class="submit-btn" [disabled]="isLoading()">
+          @if (isLoading()) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            <mat-icon>arrow_forward</mat-icon>
+          }
+          {{ isRegisterMode() ? 'Crear cuenta' : 'Entrar' }}
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
