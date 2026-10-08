@@ -82,7 +82,7 @@ export class Login {
     }
 
     const { username, password } = this.credentialsForm.value;
-    const onSuccess = () => this.router.navigateByUrl('/home');
+    const onSuccess = () => this.router.navigateByUrl('/dashboard');
 
     if (this.mode() === 'login') {
       this.store.signIn(username, password, onSuccess);

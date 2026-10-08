@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './shared/presentation/views/home/home';
+import { authGuard } from './iam/infrastructure/auth.guard';
 
 const about = () => import('./shared/presentation/views/about/about').then((m) => m.About);
 
@@ -32,12 +33,12 @@ export const routes: Routes = [
   { path: 'home', component: Home, title: `Home - ${baseTitle}` },
   { path: 'about', loadComponent: about, title: `About - ${baseTitle}` },
   { path: 'iam', loadChildren: iamRoutes },
-  { path: 'inventory', loadChildren: inventoryRoutes },
-  { path: 'fulfillment', loadChildren: fulfillmentRoutes },
-  { path: 'dashboard', loadChildren: dashboardRoutes },
-  { path: 'ordering', loadChildren: orderingRoutes },
-  { path: 'reporting', loadChildren: reportingRoutes },
-  { path: 'notification', loadChildren: notificationRoutes },
+  { path: 'inventory', loadChildren: inventoryRoutes, canActivate: [authGuard] },
+  { path: 'fulfillment', loadChildren: fulfillmentRoutes, canActivate: [authGuard] },
+  { path: 'dashboard', loadChildren: dashboardRoutes, canActivate: [authGuard] },
+  { path: 'ordering', loadChildren: orderingRoutes, canActivate: [authGuard] },
+  { path: 'reporting', loadChildren: reportingRoutes, canActivate: [authGuard] },
+  { path: 'notification', loadChildren: notificationRoutes, canActivate: [authGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', loadComponent: pageNotFound, title: `Page Not Found - ${baseTitle}` },
 ];
