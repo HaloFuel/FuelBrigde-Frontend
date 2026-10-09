@@ -10,6 +10,14 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
+/**
+ * RequestForm - New Fuel Order Placement Form (US-05)
+ *
+ * Allows a buyer to submit a new fuel purchase request by specifying
+ * the provider, product, quantity, delivery date and address.
+ * Supports both create and edit modes depending on route params.
+ */
+
 @Component({
   selector: 'app-request-form',
   imports: [
@@ -30,6 +38,8 @@ export class RequestForm {
   private router = inject(Router);
   readonly store = inject(OrderingStore);
 
+  // Reactive form group for fuel request creation and editing
+
   form = this.fb.group({
     clientId:            new FormControl<string>('',   { nonNullable: true, validators: [Validators.required, Validators.minLength(3)] }),
     providerId:          new FormControl<string>('',   { nonNullable: true, validators: [Validators.required, Validators.minLength(3)] }),
@@ -40,10 +50,16 @@ export class RequestForm {
     deliveryAddress:     new FormControl<string>('',   { nonNullable: true, validators: [Validators.required, Validators.minLength(10)] }),
   });
 
+  // Flag to determine if the form is in edit mode
+
   isEdit     = false;
   requestId: string | null = null;
+
+  // Minimum allowed delivery date is today
   readonly minDate = new Date();
 
+
+  // Supported quantity units for fuel requests
   readonly units = [
     { value: 'LITERS',  label: 'unit.liters'  },
     { value: 'GALLONS', label: 'unit.gallons' },
@@ -69,6 +85,11 @@ export class RequestForm {
       }
     });
   }
+
+  /**
+   * Submits the form to create or update a fuel request.
+   * Navigates back to the request list on success.
+   */
 
   submit() {
     if (this.form.invalid) return;
@@ -100,6 +121,10 @@ export class RequestForm {
     this.router.navigate(['/ordering/request-list']).then();
   }
 
+
+  /**
+   * Cancels the form and navigates back to the request list.
+   */
   cancel() {
     this.router.navigate(['/ordering/request-list']).then();
   }

@@ -5,6 +5,14 @@ import { RequestAssembler } from './request-assembler';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
+/**
+ * RequestsApiEndpoint
+ *
+ * Handles HTTP communication for fuel purchase requests (US-05).
+ * Extends BaseApiEndpoint to provide standard CRUD operations
+ * against the ordering requests endpoint defined in environment config.
+ */
+
 export class RequestsApiEndpoint extends BaseApiEndpoint<Request, RequestResource, RequestsResponse, RequestAssembler> {
 
   constructor(http: HttpClient) {
