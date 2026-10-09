@@ -16,6 +16,15 @@ export class OrderingStore {
   readonly requestCount = computed(() => this.requests().length);
   readonly orders = this.ordersSignal.asReadonly();
   readonly orderCount = computed(() => this.orders().length);
+  
+/**
+ * Sprint 1 - US-12
+ * Counts dispatched fuel orders.
+ */
+readonly dispatchedOrderCount = computed(() =>
+  this.orders().filter(order => order.status === 'DISPATCHED').length
+);
+
   readonly loading = this.loadingSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
 

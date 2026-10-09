@@ -47,31 +47,24 @@ import { DecimalPipe } from '@angular/common';
 })
 export class OrderList implements AfterViewChecked {
 
-  ngAfterViewChecked(): void {
-    if (this.dataSource().paginator !== this.paginator) {
-      this.dataSource().paginator = this.paginator;
-    }
-    if (this.dataSource().sort !== this.sort) {
-      this.dataSource().sort = this.sort;
-    }
-  }
-
   readonly store = inject(OrderingStore);
   protected router = inject(Router);
 
+  /**
+   * Sprint 1 - US-12
+   * Gets the dispatched orders count from OrderingStore.
+   * Keeps the order counter logic centralized.
+   */
+  readonly dispatchedCount = this.store.dispatchedOrderCount;
 
-/**
- * Sprint 1 - US-12
- * Counts fuel orders that have already been dispatched.
- */
-readonly dispatchedCount = computed(() =>
-  this.store.orders().filter(
-    order => order.status === 'DISPATCHED'
-  ).length
-);
-
-
-  displayedColumns: string[] = ['id', 'requestId', 'quantity', 'totalAmount', 'status', 'actions'];
+  displayedColumns: string[] = [
+    'id',
+    'requestId',
+    'quantity',
+    'totalAmount',
+    'status',
+    'actions'
+  ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -82,6 +75,16 @@ readonly dispatchedCount = computed(() =>
     source.paginator = this.paginator;
     return source;
   });
+
+  ngAfterViewChecked(): void {
+    if (this.dataSource().paginator !== this.paginator) {
+      this.dataSource().paginator = this.paginator;
+    }
+
+    if (this.dataSource().sort !== this.sort) {
+      this.dataSource().sort = this.sort;
+    }
+  }
 
   viewOrder(id: string) {
     this.router.navigate(['/ordering/order-detail', id]).then();
