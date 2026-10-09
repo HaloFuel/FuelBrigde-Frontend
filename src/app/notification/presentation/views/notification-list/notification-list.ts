@@ -13,6 +13,14 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { NotificationStore } from '../../../application/notification.store';
 import { Notification } from '../../../domain/model/notification.entity';
 
+/**
+ * NotificationList - Notification List View (US-26 / US-27)
+ *
+ * Displays all notifications for the current user, supporting
+ * filtering by unread status and individual or bulk read/unread actions.
+ * Notifications are categorized by type: order, payment or delivery events.
+ */
+
 @Component({
   selector: 'app-notification-list',
   standalone: true,

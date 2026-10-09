@@ -2,6 +2,14 @@ import { BaseAssembler } from '../../shared/infrastructure/base-assembler';
 import { Notification } from '../domain/model/notification.entity';
 import { NotificationResource, NotificationsResponse } from './notification-response';
 
+/**
+ * NotificationAssembler
+ *
+ * Translates between Notification domain entities and API resource format.
+ * Used by the notification infrastructure layer to map backend responses
+ * into domain objects and prepare entities for API requests.
+ */
+
 export class NotificationAssembler
   implements BaseAssembler<Notification, NotificationResource, NotificationsResponse>
 {
