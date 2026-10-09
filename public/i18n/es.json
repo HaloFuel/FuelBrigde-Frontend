@@ -87,6 +87,11 @@
     "items-below-threshold": "ítems por debajo del umbral",
     "update-tooltip": "Actualizar Stock",
     "empty": "No hay ítems de inventario disponibles",
+    "search": "Buscar por ID de producto",
+    "clear-search": "Limpiar búsqueda",
+    "low-stock-only": "Solo stock bajo",
+    "no-results": "No hay ítems que coincidan con los filtros",
+    "refresh": "Actualizar inventario",
     "fields": {
       "product": "Producto",
       "available": "Disponible",

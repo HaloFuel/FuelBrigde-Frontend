@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { InventoryStore } from '../../../application/inventory.store';
@@ -31,6 +32,7 @@ import { InventoryStore } from '../../../application/inventory.store';
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSlideToggleModule,
     RouterModule,
     TranslatePipe,
   ],
@@ -39,6 +41,15 @@ import { InventoryStore } from '../../../application/inventory.store';
 })
 export class InventoryList implements OnInit {
   protected readonly store = inject(InventoryStore);
+  protected readonly searchQuery = signal('');
+  protected readonly lowStockOnly = signal(false);
+  protected readonly filteredInventory = computed(() => {
+    const query = this.searchQuery().trim().toLowerCase();
+    return this.store.inventoryList().filter((item) =>
+      item.productId.toLowerCase().includes(query) &&
+      (!this.lowStockOnly() || item.availableQuantity < 1000),
+    );
+  });
 
   // TODO: Reemplazar con providerId real de IAM cuando se implemente
   private readonly TEMP_PROVIDER_ID = '1';

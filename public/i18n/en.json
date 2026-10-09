@@ -87,6 +87,11 @@
     "items-below-threshold": "items below threshold",
     "update-tooltip": "Update Stock",
     "empty": "No inventory items available",
+    "search": "Search by product ID",
+    "clear-search": "Clear search",
+    "low-stock-only": "Low stock only",
+    "no-results": "No items match your filters",
+    "refresh": "Refresh inventory",
     "fields": {
       "product": "Product",
       "available": "Available",
