@@ -46,6 +46,7 @@ export class Login {
 
   readonly mode = signal<Mode>('login');
   readonly selectedRole = signal<Role>('ROLE_BUYER');
+  readonly hidePassword = signal(true);
   readonly isLoading = this.store.isLoading;
   readonly error = this.store.error;
 
@@ -57,11 +58,14 @@ export class Login {
   });
 
   setMode(mode: Mode): void {
+    if (this.isLoading()) return;
     this.mode.set(mode);
+    this.hidePassword.set(true);
     this.store.clearError();
   }
 
   pickRole(role: Role): void {
+    if (this.isLoading()) return;
     this.selectedRole.set(role);
   }
 
@@ -76,6 +80,7 @@ export class Login {
   }
 
   submit(): void {
+    if (this.isLoading()) return;
     if (this.credentialsForm.invalid) {
       this.credentialsForm.markAllAsTouched();
       return;
