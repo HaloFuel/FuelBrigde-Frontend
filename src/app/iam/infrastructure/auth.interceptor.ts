@@ -6,8 +6,10 @@ import { SessionStorage } from './session-storage';
  * @remarks No se agrega el header en las peticiones de sign-in/sign-up,
  * porque todavía no existe token en esos momentos y el backend tampoco lo
  * exige ahí (son los únicos endpoints públicos junto con GET /provider-companies).
- * @author FuelBridge Platform
+ * @Diego FuelBridge Platform
  */
+
+
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const isAuthEndpoint = req.url.includes('/authentication/sign-in') || req.url.includes('/authentication/sign-up');
   const token = SessionStorage.getToken();

@@ -20,7 +20,7 @@ type Mode = 'login' | 'register';
  * formulario base (usuario/contraseña); registro agrega la selección de rol.
  * Al registrarse, el store hace sign-up y luego sign-in automático para que
  * el usuario quede logueado sin un paso extra.
- * @author FuelBridge Platform
+ * @Diego FuelBridge Platform
  */
 @Component({
   selector: 'app-login',
