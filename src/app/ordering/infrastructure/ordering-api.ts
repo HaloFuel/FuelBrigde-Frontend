@@ -7,11 +7,12 @@ import { Order } from '../domain/model/order.entity';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+// Opcional: Eliminar la herencia de BaseApi si es redundante
 @Injectable({ providedIn: 'root' })
 export class OrderingApi extends BaseApi {
   private readonly requestsEndpoint: RequestsApiEndpoint;
   private readonly ordersEndpoint: OrdersApiEndpoint;
-
+// Angular inyecta las instancias
   constructor(http: HttpClient) {
     super();
     this.requestsEndpoint = new RequestsApiEndpoint(http);
