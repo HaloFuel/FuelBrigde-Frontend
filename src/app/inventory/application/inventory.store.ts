@@ -112,7 +112,7 @@ export class InventoryStore {
   createProduct(
     payload: CreateProductPayload,
     onSuccess?: () => void
-  ): void{
+  ): void {
     this._isLoading.set(true);
     this._error.set(null);
     this.api
@@ -136,7 +136,7 @@ export class InventoryStore {
     productId: string,
     payload: UpdateProductPayload,
     onSuccess?: () => void
-  ): void{
+  ): void {
     this._isLoading.set(true);
     this._error.set(null);
     this.api
@@ -218,7 +218,7 @@ export class InventoryStore {
   updateStock(
     inventoryItemId: string,
     payload: UpdateStockPayload
-  ): void{
+  ): void {
     this._isLoading.set(true);
     this._error.set(null);
     this.api
@@ -242,7 +242,7 @@ export class InventoryStore {
   reserveStock(
     inventoryItemId: string,
     payload: ReserveStockPayload
-  ): void{
+  ): void {
     this._isLoading.set(true);
     this._error.set(null);
     this.api
@@ -278,3 +278,4 @@ export class InventoryStore {
     return fallback;
   }
 }
+
