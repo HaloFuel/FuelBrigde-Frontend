@@ -79,7 +79,14 @@
 
       <div class="actions">
         @if (o.status === 'CREATED') {
-          <button mat-raised-button color="primary" (click)="dispatch(o)">
+          
+<!-- Sprint 1 - US-12: Prevent repeated dispatch requests -->
+<button
+  mat-raised-button
+  color="primary"
+  [disabled]="store.loading()"
+  (click)="dispatch(o)">
+
             <mat-icon>local_shipping</mat-icon>
             {{ 'order-detail.dispatch' | translate }}
           </button>
