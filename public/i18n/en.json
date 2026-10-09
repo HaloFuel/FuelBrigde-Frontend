@@ -357,6 +357,7 @@
   "notification-list": {
     "title": "Notifications",
     "subtitle": "Stay on top of relevant events for your orders, payments and deliveries",
+    "unread-order-events": "Unread order notifications",
     "show-all": "Show All",
     "show-unread": "Unread Only",
     "mark-all-read": "Mark All as Read",

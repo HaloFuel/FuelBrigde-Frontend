@@ -26,6 +26,17 @@ export class NotificationStore {
     this._notificationList().filter((n) => n.isRead),
   );
   public readonly unreadCount = computed(() => this.unreadNotifications().length);
+  
+/**
+ * Sprint 1 - US-29 / US-30
+ * Counts unread fuel order notifications.
+ */
+public readonly unreadOrderCount = computed(() =>
+  this.unreadNotifications().filter(
+    notification => notification.isOrderEvent()
+  ).length
+);
+
   public readonly orderNotifications = computed(() =>
     this._notificationList().filter((n) => n.isOrderEvent()),
   );

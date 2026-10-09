@@ -8,6 +8,13 @@
         }
       </h1>
       <p>{{ 'notification-list.subtitle' | translate }}</p>
+      
+<!-- Sprint 1 - US-29 / US-30: Unread order notifications -->
+<p>
+  {{ 'notification-list.unread-order-events' | translate }}:
+  <strong>{{ store.unreadOrderCount() }}</strong>
+</p>
+
     </div>
 
     <div class="header-actions">

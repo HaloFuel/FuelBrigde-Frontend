@@ -357,6 +357,7 @@
   "notification-list": {
     "title": "Notificaciones",
     "subtitle": "Mantente al tanto de los eventos relevantes de tus pedidos, pagos y entregas",
+    "unread-order-events": "Notificaciones de pedidos sin leer",
     "show-all": "Mostrar Todas",
     "show-unread": "Solo No Leídas",
     "mark-all-read": "Marcar Todas como Leídas",
