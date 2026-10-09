@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,28 +38,27 @@ export class NotificationList implements OnInit {
   // TODO: Reemplazar con userId real de IAM cuando se implemente
   private readonly TEMP_USER_ID = 'u1';
 
-  protected filterMode: 'all' | 'unread' = 'all';
+  protected readonly filterMode = signal<'all' | 'unread'>('all');
+  protected readonly visibleNotifications = computed(() =>
+    this.filterMode() === 'unread'
+      ? this.store.unreadNotifications()
+      : this.store.notificationList(),
+  );
 
   ngOnInit(): void {
     this.store.loadNotificationsByUser(this.TEMP_USER_ID);
   }
 
   protected onShowAll(): void {
-    this.filterMode = 'all';
-    this.store.loadNotificationsByUser(this.TEMP_USER_ID);
+    this.filterMode.set('all');
   }
 
   protected onShowUnread(): void {
-    this.filterMode = 'unread';
-    this.store.loadUnreadNotificationsByUser(this.TEMP_USER_ID);
+    this.filterMode.set('unread');
   }
 
   protected onRefresh(): void {
-    if (this.filterMode === 'unread') {
-      this.store.loadUnreadNotificationsByUser(this.TEMP_USER_ID);
-    } else {
-      this.store.loadNotificationsByUser(this.TEMP_USER_ID);
-    }
+    this.store.loadNotificationsByUser(this.TEMP_USER_ID);
   }
 
   protected onMarkAsRead(notification: Notification): void {

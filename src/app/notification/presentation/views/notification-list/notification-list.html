@@ -15,7 +15,8 @@
         mat-button
         (click)="onShowAll()"
         [disabled]="store.isLoading()"
-        [class.active-filter]="filterMode === 'all'"
+        [class.active-filter]="filterMode() === 'all'"
+        [attr.aria-pressed]="filterMode() === 'all'"
       >
         <mat-icon>list</mat-icon>
         {{ 'notification-list.show-all' | translate }}
@@ -24,7 +25,8 @@
         mat-button
         (click)="onShowUnread()"
         [disabled]="store.isLoading()"
-        [class.active-filter]="filterMode === 'unread'"
+        [class.active-filter]="filterMode() === 'unread'"
+        [attr.aria-pressed]="filterMode() === 'unread'"
       >
         <mat-icon>mark_email_unread</mat-icon>
         {{ 'notification-list.show-unread' | translate }}
@@ -65,13 +67,13 @@
   }
 
   <div class="notifications-panel">
-    @if (store.notificationList().length === 0 && !store.isLoading()) {
+    @if (visibleNotifications().length === 0 && !store.isLoading() && !store.error()) {
       <div class="empty-state">
         <mat-icon>notifications_off</mat-icon>
         <p>{{ 'notification-list.empty' | translate }}</p>
       </div>
     } @else {
-      @for (notification of store.notificationList(); track trackById($index, notification)) {
+      @for (notification of visibleNotifications(); track trackById($index, notification)) {
         <mat-card
           class="notification-card"
           [class.unread]="!notification.isRead"
@@ -109,6 +111,8 @@
             <button
               mat-icon-button
               (click)="onToggleRead(notification)"
+              [disabled]="store.isLoading()"
+              [attr.aria-label]="(notification.isRead ? 'notification-list.mark-unread-tooltip' : 'notification-list.mark-read-tooltip') | translate"
               [matTooltip]="
                 (notification.isRead
                   ? 'notification-list.mark-unread-tooltip'
@@ -124,6 +128,8 @@
               mat-icon-button
               color="warn"
               (click)="onDelete(notification.id)"
+              [disabled]="store.isLoading()"
+              [attr.aria-label]="'notification-list.delete-tooltip' | translate"
               [matTooltip]="'notification-list.delete-tooltip' | translate"
             >
               <mat-icon>close</mat-icon>
