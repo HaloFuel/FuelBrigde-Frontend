@@ -59,6 +59,18 @@ export class OrderList implements AfterViewChecked {
   readonly store = inject(OrderingStore);
   protected router = inject(Router);
 
+
+/**
+ * Sprint 1 - US-12
+ * Counts fuel orders that have already been dispatched.
+ */
+readonly dispatchedCount = computed(() =>
+  this.store.orders().filter(
+    order => order.status === 'DISPATCHED'
+  ).length
+);
+
+
   displayedColumns: string[] = ['id', 'requestId', 'quantity', 'totalAmount', 'status', 'actions'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

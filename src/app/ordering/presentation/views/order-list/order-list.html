@@ -1,5 +1,15 @@
 <h1 class="title">{{ 'order-list.title' | translate }}</h1>
 
+<!-- Sprint 1 - US-12: Dispatched fuel orders counter -->
+<mat-chip-set>
+  <mat-chip class="dispatched">
+    {{ 'order-status.dispatched' | translate }}:
+    {{ dispatchedCount() }}
+  </mat-chip>
+</mat-chip-set>
+
+
+
 @if (store.loading()) {
   <mat-spinner diameter="40"></mat-spinner>
 }
