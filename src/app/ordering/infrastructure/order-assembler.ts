@@ -2,6 +2,14 @@ import { BaseAssembler } from '../../shared/infrastructure/base-assembler';
 import { Order } from '../domain/model/order.entity';
 import { OrderResource, OrdersResponse } from './orders-response';
 
+/**
+ * OrderAssembler
+ *
+ * Translates between the Order domain entity and the API resource format.
+ * Used by the orders infrastructure layer to map API responses into
+ * domain objects and vice versa before sending requests to the backend.
+ */
+
 export class OrderAssembler implements BaseAssembler<Order, OrderResource, OrdersResponse> {
 
   toEntityFromResource(resource: OrderResource): Order {

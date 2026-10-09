@@ -12,6 +12,14 @@ import { MatError } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
 import { DatePipe, DecimalPipe } from '@angular/common';
 
+/**
+ * OrderDetail - Order Detail View (US-06)
+ *
+ * Displays the complete information of a fuel order identified by route param.
+ * Allows the provider to dispatch, confirm delivery and close an order
+ * by updating its status through the OrderingStore.
+ */
+
 @Component({
   selector: 'app-order-detail',
   imports: [
